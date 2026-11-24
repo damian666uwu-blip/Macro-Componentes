@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Macro Componentes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #0d1720;
+        --panel: #142b3d;
+        --panel-2: #162f45;
+        --line: #7093b5;
+        --line-soft: #b2c7d9;
+        --ink: #edf8ff;
+        --muted: #bad0e4;
+        --button: #dfeeff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Segoe UI", "Inter", "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.45;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      .container {
+        width: min(1040px, calc(100% - 20px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        background: var(--panel);
+        border-bottom: 3px solid var(--line-soft);
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        min-height: 72px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .logo-box {
+        width: 48px;
+        height: 48px;
+        display: grid;
+        place-items: center;
+        background: var(--button);
+        color: #0b1420;
+        border: 2px solid var(--line);
+        font-weight: 900;
+        overflow: hidden;
+      }
+
+      .logo-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+
+      .brand-text small {
+        display: block;
+        color: var(--muted);
+        font-size: 9px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .brand-text h1 {
+        margin: 2px 0 0;
+        font-size: clamp(1rem, 1.8vw, 1.5rem);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-left: auto;
+      }
+
+      nav a {
+        padding: 8px 9px;
+        border: 1px solid var(--line);
+        background: #132d42;
+        border-radius: 10px;
+        transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+      }
+
+      nav a:hover {
+        background: #20435f;
+        border-color: #6e9aba;
+        transform: translateY(-1px);
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-left: 12px;
+      }
+
+      .ghost-btn,
+      .primary-btn,
+      .card-btn,
+      .checkout-btn {
+        border: 2px solid var(--line-soft);
+        background: #1f3b56;
+        color: var(--ink);
+        padding: 9px 12px;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 700;
+        border-radius: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+      }
+
+      .ghost-btn:hover,
+      .primary-btn:hover,
+      .card-btn:hover,
+      .checkout-btn:hover {
+        background: #c5e0f8;
+        border-color: #9dc7eb;
+        color: #101b28;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 14px rgba(0, 0, 0, 0.2);
+      }
+
+      .ghost-btn:hover {
+        background: #2b4c67;
+        color: var(--ink);
+      }
+
+      .ghost-btn:focus-visible,
+      .primary-btn:focus-visible,
+      .card-btn:focus-visible,
+      .checkout-btn:focus-visible,
+      .remove-item:focus-visible,
+      .close-support:focus-visible,
+      nav a:focus-visible {
+        outline: 2px solid #b9dcf8;
+        outline-offset: 3px;
+      }
+
+      .primary-btn,
+      .card-btn,
+      .checkout-btn {
+        background: var(--button);
+        color: #101b28;
+      }
+
+      .cart-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border: 1px solid var(--line);
+        background: #17344c;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        border-radius: 999px;
+      }
+
+      .cart-pill svg,
+      .checkout-btn svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+      }
+
+      .cart-pill span {
+        display: inline-grid;
+        place-items: center;
+        width: 20px;
+        height: 20px;
+        background: #e6d182;
+        color: #0b1420;
+        font-weight: 900;
+      }
+
+      .hero {
+        padding: 28px 0 20px;
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 22px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 6px 8px;
+        border: 1px solid var(--line-soft);
+        background: #17324d;
+        color: var(--ink);
+        font-size: 0.64rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        margin: 12px 0 10px;
+        font-size: clamp(2.2rem, 4.5vw, 4rem);
+        line-height: 0.9;
+        text-transform: uppercase;
+        letter-spacing: -0.05em;
+        font-family: Georgia, "Times New Roman", serif;
+      }
+
+      .hero-copy p {
+        margin: 0;
+        color: var(--muted);
+        max-width: 620px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .hero-visual {
+        width: min(100%, 440px);
+        aspect-ratio: 1 / 1;
+        height: auto;
+        margin: 0 auto;
+        overflow: hidden;
+      }
+
+      .hero-logo {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 1 / 1;
+        display: block;
+        object-fit: cover;
+        border-radius: 0;
+      }
+
+      .catalog,
+      .checkout {
+        padding: 18px 0 34px;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .section-head h3 {
+        margin: 0;
+        font-size: clamp(1.7rem, 3vw, 2.6rem);
+        text-transform: uppercase;
+        font-family: Georgia, "Times New Roman", serif;
+      }
+
+      .section-head span {
+        color: var(--muted);
+        font-size: 0.68rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(210px, 1fr));
+        gap: 16px;
+      }
+
+      .product-card {
+        background: var(--panel-2);
+        border: 2px solid var(--line);
+      }
+
+      .product-tag {
+        display: inline-block;
+        margin: 10px 0 0 10px;
+        padding: 5px 7px;
+        border: 1px solid var(--line-soft);
+        background: var(--button);
+        color: #0b1420;
+        font-size: 0.56rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .product-image {
+        height: 160px;
+        display: grid;
+        place-items: center;
+        background: #1d3b5c;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        overflow: hidden;
+      }
+
+      .product-image span {
+        width: 90px;
+        height: 90px;
+        display: grid;
+        place-items: center;
+        background: var(--button);
+        color: #0b1420;
+        border: 2px solid var(--line);
+        font-size: 1.5rem;
+        font-weight: 900;
+      }
+
+      .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        padding: 8px;
+        box-sizing: border-box;
+        background: #1d3b5c;
+      }
+
+      .product-card:nth-child(4) .product-image img {
+        width: 92%;
+        height: 100%;
+        object-fit: contain;
+        margin: 0 auto;
+      }
+
+      .product-info {
+        padding: 12px 10px 12px;
+      }
+
+      .product-info h4 {
+        margin: 0 0 7px;
+        font-size: 1.04rem;
+        min-height: 46px;
+      }
+
+      .product-meta {
+        margin: 0 0 12px;
+        color: var(--muted);
+        font-size: 0.66rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .product-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+
+      .price {
+        font-size: 1.2rem;
+        font-weight: 900;
+      }
+
+      .qty-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding-top: 8px;
+        border-top: 1px solid var(--line);
+      }
+
+      .qty-wrap label {
+        color: var(--muted);
+        font-size: 0.64rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .qty-wrap input {
+        width: 58px;
+        background: #0d1822;
+        border: 1px solid var(--line);
+        color: var(--ink);
+        padding: 7px 6px;
+        text-align: center;
+      }
+
+      .checkout-shell {
+        display: grid;
+        grid-template-columns: 1.5fr 0.7fr;
+        gap: 18px;
+      }
+
+      .cart-panel,
+      .summary-panel {
+        background: var(--panel-2);
+        border: 2px solid var(--line);
+      }
+
+      .cart-panel {
+        padding: 14px;
+      }
+
+      .cart-header h4,
+      .summary-panel h4 {
+        margin: 0 0 10px;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .cart-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .cart-table th,
+      .cart-table td {
+        padding: 8px 6px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: middle;
+      }
+
+      .cart-table th {
+        color: var(--muted);
+        font-size: 0.62rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .remove-item {
+        background: #0c1823;
+        border: 1px solid #dca69f;
+        color: #ffd5d0;
+        padding: 4px 6px;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+      }
+
+      .remove-item:hover {
+        background: #512d30;
+        border-color: #efb3ab;
+        transform: translateY(-1px);
+      }
+
+      .summary-panel {
+        padding: 14px;
+      }
+
+      .summary-line {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 9px 0;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+      }
+
+      .summary-line.total {
+        color: var(--ink);
+        font-weight: 800;
+      }
+
+      .checkout-btn {
+        width: 100%;
+        margin-top: 14px;
+      }
+
+      .empty-cart {
+        text-align: center;
+        color: var(--muted);
+        padding: 18px 0 6px;
+      }
+
+      footer {
+        background: #101b28;
+        border-top: 3px solid var(--line-soft);
+        padding: 18px 0 26px;
+      }
+
+      .footer-inner {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .footer-copy,
+      .footer-links,
+      .footer-contact {
+        color: var(--muted);
+      }
+
+      .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--ink);
+        font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      .footer-logo-small {
+        width: 36px;
+        height: 36px;
+        display: inline-block;
+        overflow: hidden;
+        background: var(--button);
+        border: 1px solid var(--line);
+      }
+
+      .footer-logo-small img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+
+      .footer-description {
+        display: block;
+        margin-top: 5px;
+      }
+
+      .footer-prompt {
+        max-width: 260px;
+        margin: 10px 0 0;
+        color: var(--ink);
+        font-size: 0.8rem;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .footer-contact {
+        display: grid;
+        gap: 10px;
+        min-width: min(100%, 320px);
+      }
+
+      .support-overlay {
+        position: fixed;
+        inset: 0;
+        display: none;
+        place-items: center;
+        padding: 24px;
+        background: rgba(6, 10, 16, 0.7);
+        backdrop-filter: blur(4px);
+        z-index: 2000;
+      }
+
+      .support-overlay.is-open {
+        display: grid;
+      }
+
+      .support-panel {
+        position: relative;
+        background: var(--panel-2);
+        border: 2px solid var(--line);
+        border-radius: 18px;
+        padding: 22px;
+        max-width: 760px;
+        width: min(100%, 760px);
+        max-height: 90vh;
+        overflow: auto;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+      }
+
+      .close-support {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 34px;
+        height: 34px;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: rgba(255,255,255,0.04);
+        color: var(--ink);
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+      }
+
+      .close-support:hover {
+        background: #29445b;
+        border-color: #6e9aba;
+        transform: rotate(4deg);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+        }
+      }
+
+      .support-panel h3 {
+        margin: 0 0 8px;
+        font-size: clamp(1.5rem, 3vw, 2.4rem);
+        text-transform: uppercase;
+        font-family: Georgia, "Times New Roman", serif;
+      }
+
+      .support-panel p {
+        margin: 0 0 18px;
+        color: var(--muted);
+      }
+
+      .support-form {
+        display: grid;
+        gap: 14px;
+      }
+
+      .field-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .form-group {
+        display: grid;
+        gap: 8px;
+      }
+
+      .form-group label {
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        background: #0d1822;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        color: var(--ink);
+        padding: 11px 12px;
+        font: inherit;
+      }
+
+      .form-group textarea {
+        min-height: 140px;
+        resize: vertical;
+      }
+
+      .bot-check {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(255,255,255,0.02);
+      }
+
+      .bot-check input {
+        width: 18px;
+        height: 18px;
+      }
+
+      .support-actions {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.82rem;
+      }
+
+      .contact-icon {
+        width: 28px;
+        height: 28px;
+        display: inline-grid;
+        place-items: center;
+        background: #17344c;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      .social-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 4px;
+      }
+
+      .social-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 10px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255,255,255,0.02);
+        font-size: 0.72rem;
+        text-transform: none;
+      }
+
+      .social-icon {
+        width: 18px;
+        height: 18px;
+        display: inline-grid;
+        place-items: center;
+        border-radius: 50%;
+        background: #dfeeff;
+        color: #101b28;
+        font-weight: 900;
+        font-size: 0.75rem;
+      }
+
+      @media (max-width: 980px) {
+        .hero-inner,
+        .product-grid,
+        .checkout-shell {
+          grid-template-columns: repeat(2, minmax(220px, 1fr));
+        }
+
+        .hero-inner,
+        .checkout-shell {
+          grid-template-columns: 1fr;
+        }
+
+        nav {
+          display: none;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .product-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .section-head {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <div class="brand" aria-label="Logo de Macro Componentes">
+          <div class="logo-box"><img src="img/LOGOpequeño.jpg" alt="" /></div>
+          <div class="brand-text">
+            <small></small>
+            <h1>Macro Componentes</h1>
+          </div>
+        </div>
+
+        <nav aria-label="Menú principal">
+          <a href="#inicio">Inicio</a>
+          <a href="#catalogo">Catálogo</a>
+          <a href="#carrito">Carrito</a>
+          <a href="#" id="supportTrigger">Soporte</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+
+        <div class="nav-actions">
+          <div class="cart-pill" aria-label="Carrito de compras">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2Zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2ZM6.16 6h13.15l-1.79 8.13a2 2 0 0 1-2 1.62H8.06a2 2 0 0 1-1.98-1.68L4.58 2H2V0h3.16l.36 1.71h14.53V3.7H7.49l1.17 5.52h9.3L18.25 6H6.16Zm2.1 12.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm10 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></svg>
+            Carrito <span id="cartCount">0</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="inicio">
+      <section class="hero">
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <span class="eyebrow">Hardware premium</span>
+            <h2>Potencia tu setup.</h2>
+            <p>
+              En Macro Componentes tenemos lo último en hardware y tecnología para armar tu PC. Setups de alta gama
+              hasta estaciones de trabajo profesionales. Te ayudamos a elegir justo lo que necesitas.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#catalogo" class="primary-btn">Ver catálogo</a>
+            </div>
+
+            <div class="mini-stats" aria-label="Estadísticas de la tienda">
+              <div>
+                <strong>12k+</strong>
+                <span>Productos</span>
+              </div>
+              <div>
+                <strong>24h</strong>
+                <span>Envío rápido</span>
+              </div>
+              <div>
+                <strong>99%</strong>
+                <span>Clientes satisfechos</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <img class="hero-logo" src="img/LOGO.jpeg" alt="Logo de Macro Componentes con su eslogan" />
+          </div>
+        </div>
+      </section>
+
+      <section class="catalog" id="catalogo">
+        <div class="container">
+          <div class="section-head">
+            <h3>Catálogo destacado</h3>
+            <span>Componentes premium para gamers y profesionales</span>
+          </div>
+
+          <div id="productGrid" class="product-grid" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="checkout" id="carrito">
+        <div class="container">
+          <div class="section-head">
+            <h3>Tu carrito</h3>
+            <span>Seleccioná tus productos y cantidades</span>
+          </div>
+
+          <div class="checkout-shell">
+            <div class="cart-panel">
+              <div class="cart-header">
+                <h4>Productos seleccionados</h4>
+              </div>
+
+              <table class="cart-table" aria-live="polite">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>Cant.</th>
+                    <th>Precio</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="cartItems"></tbody>
+              </table>
+
+              <div id="emptyCart" class="empty-cart">Todavía no agregaste productos al carrito.</div>
+            </div>
+
+            <aside class="summary-panel">
+              <h4>Resumen</h4>
+              <div class="summary-lines">
+                <div class="summary-line">
+                  <span>Productos</span>
+                  <strong id="itemsCount">0</strong>
+                </div>
+                <div class="summary-line">
+                  <span>Subtotal</span>
+                  <strong id="subtotalValue">$ 0,00</strong>
+                </div>
+                <div class="summary-line">
+                  <span>Envío</span>
+                  <strong id="shippingValue">$ 0,00</strong>
+                </div>
+                <div class="summary-line total">
+                  <span>Total</span>
+                  <strong id="totalValue">$ 0,00</strong>
+                </div>
+              </div>
+              <button class="checkout-btn" id="checkoutButton" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2Zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2ZM6.16 6h13.15l-1.79 8.13a2 2 0 0 1-2 1.62H8.06a2 2 0 0 1-1.98-1.68L4.58 2H2V0h3.16l.36 1.71h14.53V3.7H7.49l1.17 5.52h9.3L18.25 6H6.16Zm2.1 12.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm10 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></svg>
+                Pagar ahora
+              </button>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <div class="support-overlay" id="supportOverlay" aria-hidden="true">
+        <div class="support-panel" role="dialog" aria-modal="true" aria-labelledby="supportTitle">
+          <button class="close-support" id="closeSupport" type="button" aria-label="Cerrar soporte">×</button>
+          <h3 id="supportTitle">Soporte</h3>
+          <p>Dinos tu duda, sugerencia, problema o pedido. Respondemos lo antes posible.</p>
+
+          <form class="support-form" id="supportForm">
+            <div class="field-grid">
+              <div class="form-group">
+                <label for="supportName">Nombre</label>
+                <input id="supportName" name="name" type="text" placeholder="Tu nombre" required />
+              </div>
+
+              <div class="form-group">
+                <label for="supportEmail">Correo electrónico</label>
+                <input id="supportEmail" name="email" type="email" placeholder="tu@email.com" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="supportType">Tipo de consulta</label>
+              <select id="supportType" name="type">
+                <option value="Duda">Duda</option>
+                <option value="Sugerencia">Sugerencia</option>
+                <option value="Problema">Problema</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="supportMessage">Mensaje</label>
+              <textarea id="supportMessage" name="message" placeholder="Escribí tu consulta aquí..." required></textarea>
+            </div>
+
+            <div class="bot-check" aria-label="Verificación anti-bot">
+              <input id="botCheck" type="checkbox" required />
+              <label for="botCheck">Confirmo que no soy un robot.</label>
+            </div>
+
+            <div class="support-actions">
+              <button class="primary-btn" type="submit">Enviar mensaje</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="support-overlay" id="checkoutOverlay" aria-hidden="true">
+        <div class="support-panel" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+          <button class="close-support" id="closeCheckout" type="button" aria-label="Cerrar pago">×</button>
+          <h3 id="checkoutTitle">Datos de entrega</h3>
+          <p>Completá los datos para registrar tu pedido.</p>
+          <form class="support-form" id="checkoutForm">
+            <div class="field-grid">
+              <div class="form-group"><label for="checkoutName">Nombre completo</label><input id="checkoutName" required /></div>
+              <div class="form-group"><label for="checkoutEmail">Correo electrónico</label><input id="checkoutEmail" type="email" required /></div>
+            </div>
+            <div class="field-grid">
+              <div class="form-group"><label for="checkoutPhone">Teléfono</label><input id="checkoutPhone" type="tel" required /></div>
+              <div class="form-group"><label for="checkoutCity">Ciudad</label><input id="checkoutCity" required /></div>
+            </div>
+            <div class="form-group"><label for="checkoutAddress">Dirección</label><input id="checkoutAddress" required /></div>
+            <div class="form-group">
+              <label for="checkoutPayment">Método de pago</label>
+              <select id="checkoutPayment" required>
+                <option value="Tarjeta">Tarjeta</option>
+                <option value="Transferencia">Transferencia</option>
+                <option value="Contra entrega">Contra entrega</option>
+              </select>
+            </div>
+            <div class="support-actions"><button class="primary-btn" type="submit">Confirmar pedido</button></div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer id="contacto">
+      <div class="container footer-inner">
+        <div class="footer-copy">
+          <div class="footer-brand">
+            <span class="footer-logo-small" aria-hidden="true"><img src="img/LOGOpequeño.jpg" alt="" /></span>
+            <strong>Macro Componentes</strong>
+          </div>
+          <span class="footer-description">Hardware, tecnología y rendimiento para cada setup.</span>
+          <p class="footer-prompt">Hardware y componentes seleccionados para tu próxima compra.</p>
+        </div>
+
+        <div class="footer-contact" aria-label="Información de contacto">
+          <div class="contact-item">
+            <span class="contact-icon">@</span>
+            <span>macrocomponentes@gmail.com</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">☎</span>
+            <span>477 323 2852</span>
+          </div>
+          <div class="social-row">
+            <a class="social-link" href="#contacto" aria-label="Facebook">
+              <span class="social-icon">f</span>
+              <span>MacroComp_Hardware</span>
+            </a>
+            <a class="social-link" href="#contacto" aria-label="Instagram">
+              <span class="social-icon">◎</span>
+              <span>@macro.comp</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-links" aria-label="Links del sitio">
+          <a href="#inicio">Inicio</a>
+          <a href="#catalogo">Productos</a>
+          <a href="#carrito">Carrito</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const products = [
+        ["Ryzen 7", 3000.00],
+        ["Ryzen 5", 2000.00],
+        ["Ryzen 3", 1500.00],
+        ["Motherboard ASUS", 3642.00],
+        ["Módulos de RAM", 3599.99],
+        ["Teclado gamer PRO RGB", 1999.99],
+        ["Mouse gamer PRO RGB", 1499.99],
+        ["Monitor ASUS", 4000.00],
+        ["Silla gamer", 9799.99],
+        ["Gabinete", 1499.99]
+      ];
+
+      const formatter = new Intl.NumberFormat('es-AR', {
+        style: 'currency',
+        currency: 'ARS',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+
+      const imageSources = {
+        'Ryzen 7': 'img/R7.jpg',
+        'Ryzen 5': 'img/R5.png',
+        'Ryzen 3': 'img/R3.jpg',
+        'Motherboard ASUS': 'img/MDASUS.jpg',
+        'Módulos de RAM': 'img/RAM.jpg',
+        'Teclado gamer PRO RGB': 'img/TECLADO.avif',
+        'Mouse gamer PRO RGB': 'img/MOUSE.webp',
+        'Monitor ASUS': 'img/MONITOR.webp',
+        'Silla gamer': 'img/SIlla.webp',
+        'Gabinete': 'img/Gabinete.jpg'
+      };
+
+      const API_BASE = window.location.protocol === 'file:' || (window.location.port && window.location.port !== '3000')
+        ? 'http://localhost:3000'
+        : '';
+
+      const grid = document.getElementById('productGrid');
+      const cartItems = document.getElementById('cartItems');
+      const emptyCart = document.getElementById('emptyCart');
+      const cartCount = document.getElementById('cartCount');
+      const itemsCount = document.getElementById('itemsCount');
+      const subtotalValue = document.getElementById('subtotalValue');
+      const shippingValue = document.getElementById('shippingValue');
+      const totalValue = document.getElementById('totalValue');
+
+      const cart = new Map();
+
+      function formatMoney(value) {
+        return formatter.format(value);
+      }
+
+      function updateSummary() {
+        const qtyTotal = [...cart.values()].reduce((sum, item) => sum + item.qty, 0);
+        const subtotal = [...cart.values()].reduce((sum, item) => sum + item.qty * item.price, 0);
+        const shipping = subtotal > 0 ? 1800 : 0;
+        const total = subtotal + shipping;
+
+        cartCount.textContent = qtyTotal;
+        itemsCount.textContent = qtyTotal;
+        subtotalValue.textContent = formatMoney(subtotal);
+        shippingValue.textContent = formatMoney(shipping);
+        totalValue.textContent = formatMoney(total);
+      }
+
+      function renderCart() {
+        const entries = [...cart.values()];
+
+        if (entries.length === 0) {
+          cartItems.innerHTML = '';
+          emptyCart.style.display = 'block';
+          updateSummary();
+          return;
+        }
+
+        emptyCart.style.display = 'none';
+        cartItems.innerHTML = entries.map((item) => `
+          <tr>
+            <td class="item-name">${item.name}</td>
+            <td>${item.qty}</td>
+            <td>${formatMoney(item.price)}</td>
+            <td>${formatMoney(item.qty * item.price)}</td>
+            <td><button class="remove-item" type="button" data-name="${item.name}">X</button></td>
+          </tr>
+        `).join('');
+
+        updateSummary();
+      }
+
+      function addToCart(name, price, qty) {
+        if (qty <= 0) return;
+
+        if (cart.has(name)) {
+          const existing = cart.get(name);
+          cart.set(name, { ...existing, qty: existing.qty + qty });
+        } else {
+          cart.set(name, { name, price, qty });
+        }
+
+        renderCart();
+      }
+
+      products.forEach((product, index) => {
+        const [name, price] = product;
+        const card = document.createElement('article');
+        card.className = 'product-card';
+
+        const initials = name
+          .trim()
+          .split(/\s+/)
+          .slice(0, 2)
+          .map((word) => word.charAt(0).toUpperCase())
+          .join('');
+
+        const imageMarkup = imageSources[name]
+          ? `<img src="${imageSources[name]}" alt="${name}" />`
+          : `<span>${initials}</span>`;
+
+        card.innerHTML = `
+          <div class="product-tag">${index < 3 ? 'Nuevo' : 'Popular'}</div>
+          <div class="product-image">${imageMarkup}</div>
+          <div class="product-info">
+            <h4>${name.trim()}</h4>
+            <p class="product-meta">${index % 2 === 0 ? 'En stock' : 'Disponible hoy'}</p>
+            <div class="product-bottom">
+              <span class="price">${formatMoney(price)}</span>
+              <button class="card-btn" type="button">Comprar</button>
+            </div>
+            <div class="qty-wrap">
+              <label for="qty-${index}">Cant.</label>
+              <input id="qty-${index}" type="number" min="1" max="99" value="1" />
+            </div>
+          </div>
+        `;
+
+        const buyButton = card.querySelector('.card-btn');
+        const qtyInput = card.querySelector('input');
+
+        buyButton.addEventListener('click', () => {
+          const qty = Number(qtyInput.value || 1);
+          addToCart(name, price, qty);
+        });
+
+        grid.appendChild(card);
+      });
+
+      cartItems.addEventListener('click', (event) => {
+        const button = event.target.closest('.remove-item');
+        if (!button) return;
+
+        const name = button.dataset.name;
+        cart.delete(name);
+        renderCart();
+      });
+
+      renderCart();
+
+      const supportTrigger = document.getElementById('supportTrigger');
+      const supportOverlay = document.getElementById('supportOverlay');
+      const closeSupport = document.getElementById('closeSupport');
+
+      function openSupport() {
+        supportOverlay.classList.add('is-open');
+        supportOverlay.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeSupportPanel() {
+        supportOverlay.classList.remove('is-open');
+        supportOverlay.setAttribute('aria-hidden', 'true');
+      }
+
+      supportTrigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        openSupport();
+      });
+
+      closeSupport.addEventListener('click', closeSupportPanel);
+
+      supportOverlay.addEventListener('click', (event) => {
+        if (event.target === supportOverlay) {
+          closeSupportPanel();
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        if (supportOverlay.classList.contains('is-open')) closeSupportPanel();
+        if (checkoutOverlay.classList.contains('is-open')) closeCheckoutPanel();
+      });
+
+      const supportForm = document.getElementById('supportForm');
+      supportForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const name = document.getElementById('supportName').value.trim();
+        const email = document.getElementById('supportEmail').value.trim();
+        const type = document.getElementById('supportType').value;
+        const message = document.getElementById('supportMessage').value.trim();
+        const botChecked = document.getElementById('botCheck').checked;
+
+        if (!name || !email || !message || !botChecked) {
+          alert('Por favor completá todos los campos y confirmá que no sos un robot.');
+          return;
+        }
+
+        try {
+          let response;
+          try {
+            response = await fetch(`${API_BASE}/api/feedback`, {
+              method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ nombre: name, email, tipo: type, comentario: message })
+            });
+          } catch (error) {
+            throw new Error('No se pudo conectar con el servidor. Ejecutá npm start y abrí http://localhost:3000.');
+          }
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.error || 'No se pudo enviar el mensaje.');
+          alert(`Gracias ${name}. ${data.mensaje}`);
+          closeSupportPanel();
+          supportForm.reset();
+        } catch (error) {
+          alert(error.message);
+        }
+      });
+      async function guardarPedido(datosCliente) {
+        const items = Array.from(cart.values()).map((item) => ({ name: item.name, qty: item.qty }));
+        if (items.length === 0) {
+          alert("El carrito está vacío.");
+          return;
+        }
+
+        let response;
+        try {
+          response = await fetch(`${API_BASE}/api/pedidos`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            cliente: datosCliente.nombre,
+            email: datosCliente.email,
+            telefono: datosCliente.telefono,
+            direccion: datosCliente.direccion,
+            ciudad: datosCliente.ciudad,
+            metodo_pago: datosCliente.metodoPago,
+            items
+          })
+          });
+        } catch (error) {
+          throw new Error('No se pudo conectar con el servidor. Ejecutá npm start y abrí http://localhost:3000.');
+        }
+
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "No se pudo registrar el pedido.");
+        return data;
+      }
+
+      const checkoutButton = document.getElementById('checkoutButton');
+      const checkoutOverlay = document.getElementById('checkoutOverlay');
+      const checkoutForm = document.getElementById('checkoutForm');
+      const closeCheckout = document.getElementById('closeCheckout');
+
+      function openCheckout() {
+        if (cart.size === 0) {
+          alert("Agregá al menos un producto antes de pagar.");
+          return;
+        }
+        checkoutOverlay.classList.add('is-open');
+        checkoutOverlay.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeCheckoutPanel() {
+        checkoutOverlay.classList.remove('is-open');
+        checkoutOverlay.setAttribute('aria-hidden', 'true');
+      }
+
+      checkoutButton.addEventListener('click', openCheckout);
+      closeCheckout.addEventListener('click', closeCheckoutPanel);
+      checkoutOverlay.addEventListener('click', (event) => {
+        if (event.target === checkoutOverlay) closeCheckoutPanel();
+      });
+
+      checkoutForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const datosCliente = {
+          nombre: document.getElementById('checkoutName').value.trim(),
+          email: document.getElementById('checkoutEmail').value.trim(),
+          telefono: document.getElementById('checkoutPhone').value.trim(),
+          ciudad: document.getElementById('checkoutCity').value.trim(),
+          direccion: document.getElementById('checkoutAddress').value.trim(),
+          metodoPago: document.getElementById('checkoutPayment').value
+        };
+
+        if (Object.values(datosCliente).some((value) => !value)) {
+          alert("Completá todos los datos de entrega.");
+          return;
+        }
+
+        try {
+          const data = await guardarPedido(datosCliente);
+          alert(`Pedido #${data.id} registrado. Total: ${formatMoney(data.pedido.total)}`);
+          cart.clear();
+          renderCart();
+          checkoutForm.reset();
+          closeCheckoutPanel();
+        } catch (error) {
+          alert(error.message);
+        }
+      });
+    </script>
+  </body>
+</html>
